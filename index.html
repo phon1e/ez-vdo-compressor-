@@ -7,281 +7,50 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #0e0e0e;
-    --surface: #161616;
-    --border: #2a2a2a;
-    --border-hover: #444;
-    --text: #e8e8e8;
-    --muted: #666;
-    --accent: #d4ff4e;
-    --accent-dim: #8faa2a;
-    --danger: #ff4e4e;
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
+    --bg: #0e0e0e; --surface: #161616; --border: #2a2a2a; --border-hover: #444;
+    --text: #e8e8e8; --muted: #666; --accent: #d4ff4e; --danger: #ff4e4e;
+    --mono: 'IBM Plex Mono', monospace; --sans: 'IBM Plex Sans', sans-serif;
   }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 48px 20px 80px;
-  }
-
-  header {
-    width: 100%;
-    max-width: 580px;
-    margin-bottom: 40px;
-  }
-
-  header h1 {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  header p {
-    font-size: 13px;
-    color: var(--muted);
-    font-weight: 300;
-  }
-
-  .card {
-    width: 100%;
-    max-width: 580px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 28px;
-    margin-bottom: 12px;
-  }
-
-  .section-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 14px;
-  }
-
-  /* Tab toggle */
-  .tab-row {
-    display: flex;
-    border: 1px solid var(--border);
-    width: fit-content;
-    margin-bottom: 20px;
-  }
-
-  .tab-btn {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 8px 20px;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 48px 20px 80px; }
+  header { width: 100%; max-width: 580px; margin-bottom: 40px; }
+  header h1 { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+  header p { font-size: 13px; color: var(--muted); font-weight: 300; }
+  .card { width: 100%; max-width: 580px; background: var(--surface); border: 1px solid var(--border); padding: 28px; margin-bottom: 12px; }
+  .section-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .tab-row { display: flex; border: 1px solid var(--border); width: fit-content; margin-bottom: 20px; }
+  .tab-btn { background: none; border: none; color: var(--muted); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 20px; cursor: pointer; transition: background 0.15s, color 0.15s; }
   .tab-btn:first-child { border-right: 1px solid var(--border); }
-
-  .tab-btn.active {
-    background: var(--accent);
-    color: #0e0e0e;
-  }
-
-  /* Drop zone */
-  .drop-zone {
-    border: 1px dashed var(--border);
-    padding: 32px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
-  }
-
-  .drop-zone:hover, .drop-zone.drag-over {
-    border-color: var(--accent);
-    background: rgba(212,255,78,0.03);
-  }
-
-  .drop-zone input[type="file"] {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer;
-    width: 100%;
-    height: 100%;
-  }
-
-  .drop-label {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    pointer-events: none;
-  }
-
-  .drop-label span {
-    display: block;
-    font-size: 11px;
-    margin-top: 5px;
-    color: #444;
-  }
-
-  .file-name {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--accent);
-    margin-top: 10px;
-    word-break: break-all;
-  }
-
-  /* Quality options */
-  .quality-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-
-  .quality-opt {
-    border: 1px solid var(--border);
-    padding: 12px 10px;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-    text-align: center;
-  }
-
+  .tab-btn.active { background: var(--accent); color: #0e0e0e; }
+  .drop-zone { border: 1px dashed var(--border); padding: 32px 20px; text-align: center; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; }
+  .drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent); background: rgba(212,255,78,0.03); }
+  .drop-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+  .drop-label { font-family: var(--mono); font-size: 12px; color: var(--muted); pointer-events: none; }
+  .drop-label span { display: block; font-size: 11px; margin-top: 5px; color: #444; }
+  .file-name { font-family: var(--mono); font-size: 12px; color: var(--accent); margin-top: 10px; word-break: break-all; }
+  .quality-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .quality-opt { border: 1px solid var(--border); padding: 12px 10px; cursor: pointer; transition: border-color 0.15s, background 0.15s; text-align: center; }
   .quality-opt:hover { border-color: var(--border-hover); }
-
-  .quality-opt.selected {
-    border-color: var(--accent);
-    background: rgba(212,255,78,0.05);
-  }
-
-  .quality-opt .q-label {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text);
-  }
-
+  .quality-opt.selected { border-color: var(--accent); background: rgba(212,255,78,0.05); }
+  .quality-opt .q-label { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--text); }
   .quality-opt.selected .q-label { color: var(--accent); }
-
-  .quality-opt .q-sub {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 3px;
-  }
-
-  /* Run button */
-  .run-btn {
-    width: 100%;
-    max-width: 580px;
-    background: var(--accent);
-    color: #0e0e0e;
-    border: none;
-    padding: 14px;
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: opacity 0.15s;
-    margin-bottom: 12px;
-  }
-
+  .quality-opt .q-sub { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .run-btn { width: 100%; max-width: 580px; background: var(--accent); color: #0e0e0e; border: none; padding: 14px; font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: opacity 0.15s; margin-bottom: 12px; }
   .run-btn:hover { opacity: 0.88; }
   .run-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-  /* Log */
-  .log-card {
-    display: none;
-    width: 100%;
-    max-width: 580px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 20px 24px;
-  }
-
+  .log-card { display: none; width: 100%; max-width: 580px; background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; }
   .log-card.visible { display: block; }
-
-  .progress-bar-wrap {
-    height: 2px;
-    background: var(--border);
-    margin-bottom: 16px;
-  }
-
-  .progress-bar-fill {
-    height: 100%;
-    background: var(--accent);
-    width: 0%;
-    transition: width 0.3s;
-  }
-
-  .log-lines {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    line-height: 1.8;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-
-  .log-lines .ok   { color: var(--accent); }
-  .log-lines .err  { color: var(--danger); }
+  .progress-bar-wrap { height: 2px; background: var(--border); margin-bottom: 16px; }
+  .progress-bar-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
+  .log-lines { font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 1.8; max-height: 200px; overflow-y: auto; }
+  .log-lines .ok  { color: var(--accent); }
+  .log-lines .err { color: var(--danger); }
   .log-lines .info { color: var(--text); }
-
-  /* Download list */
-  .dl-list {
-    margin-top: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .dl-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border: 1px solid var(--border);
-    padding: 10px 14px;
-  }
-
-  .dl-name {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text);
-  }
-
-  .dl-btn {
-    background: none;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 5px 12px;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-  }
-
-  .dl-btn:hover {
-    background: var(--accent);
-    color: #0e0e0e;
-  }
+  .dl-list { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .dl-item { display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--border); padding: 10px 14px; }
+  .dl-name { font-family: var(--mono); font-size: 11px; color: var(--text); }
+  .dl-btn { background: none; border: 1px solid var(--accent); color: var(--accent); font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .dl-btn:hover { background: var(--accent); color: #0e0e0e; }
 </style>
 </head>
 <body>
@@ -291,23 +60,19 @@
   <p>Runs entirely in your browser. No upload, no server.</p>
 </header>
 
-<!-- Input card -->
 <div class="card">
   <div class="section-label">Input</div>
-
   <div class="tab-row">
-    <button class="tab-btn active" onclick="switchTab('mp4')">Single MP4</button>
+    <button class="tab-btn active" onclick="switchTab('mp4')">Single video</button>
     <button class="tab-btn" onclick="switchTab('zip')">Zip file</button>
   </div>
-
   <div id="tab-mp4">
     <div class="drop-zone" id="drop-mp4">
       <input type="file" id="file-mp4" accept="video/*">
-      <div class="drop-label">Click or drop a video file<span>MP4, MOV, AVI, MKV, ...</span></div>
+      <div class="drop-label">Click or drop a video file<span>MP4, MOV, AVI, MKV ...</span></div>
     </div>
     <div class="file-name" id="name-mp4"></div>
   </div>
-
   <div id="tab-zip" style="display:none">
     <div class="drop-zone" id="drop-zip">
       <input type="file" id="file-zip" accept=".zip">
@@ -317,28 +82,23 @@
   </div>
 </div>
 
-<!-- Quality card -->
 <div class="card">
   <div class="section-label">Output Quality</div>
   <div class="quality-grid">
-    <div class="quality-opt" data-res="1280:720" data-crf="24" onclick="selectQuality(this)">
-      <div class="q-label">720p</div>
-      <div class="q-sub">High</div>
+    <div class="quality-opt" data-res="1280:720" data-crf="22" onclick="selectQuality(this)">
+      <div class="q-label">720p</div><div class="q-sub">High</div>
     </div>
     <div class="quality-opt selected" data-res="1280:720" data-crf="28" onclick="selectQuality(this)">
-      <div class="q-label">720p</div>
-      <div class="q-sub">Balanced</div>
+      <div class="q-label">720p</div><div class="q-sub">Balanced</div>
     </div>
     <div class="quality-opt" data-res="854:480" data-crf="28" onclick="selectQuality(this)">
-      <div class="q-label">480p</div>
-      <div class="q-sub">Smallest</div>
+      <div class="q-label">480p</div><div class="q-sub">Smallest</div>
     </div>
   </div>
 </div>
 
 <button class="run-btn" id="run-btn" onclick="run()">Compress</button>
 
-<!-- Log + downloads -->
 <div class="log-card" id="log-card">
   <div class="section-label" id="log-title">Processing</div>
   <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill"></div></div>
@@ -346,37 +106,47 @@
   <div class="dl-list" id="dl-list"></div>
 </div>
 
+<!-- v0.11 loads as a single script — no Worker/CORS issues on GitHub Pages -->
+<script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script>
-// ── ffmpeg.wasm via CDN ──────────────────────────────────────────────────────
-const FFMPEG_CDN = 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js';
-const CORE_MT   = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.6/dist/esm';
-const CORE_ST   = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/esm';
-
-let ffmpegLoaded = false;
-let ffmpegInst   = null;
-let activeTab    = 'mp4';
-
 const VIDEO_EXT = ['mp4','mov','avi','mkv','wmv','flv','webm','m4v'];
+let activeTab   = 'mp4';
+let ffmpegReady = false;
 
-// ── Tab switch ───────────────────────────────────────────────────────────────
+const { createFFmpeg } = FFmpeg;
+const ff = createFFmpeg({
+  log: false,
+  corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js',
+  progress: ({ ratio }) => setProgress(Math.round((ratio || 0) * 100))
+});
+
+// ── tab ──────────────────────────────────────────────────────────────────────
 function switchTab(tab) {
   activeTab = tab;
   document.getElementById('tab-mp4').style.display = tab === 'mp4' ? '' : 'none';
   document.getElementById('tab-zip').style.display = tab === 'zip' ? '' : 'none';
-  document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    b.classList.toggle('active', (i === 0 && tab === 'mp4') || (i === 1 && tab === 'zip'));
-  });
+  document.querySelectorAll('.tab-btn').forEach((b, i) =>
+    b.classList.toggle('active', (i === 0) === (tab === 'mp4'))
+  );
 }
 
-// ── File label ───────────────────────────────────────────────────────────────
-document.getElementById('file-mp4').addEventListener('change', e => {
-  document.getElementById('name-mp4').textContent = e.target.files[0]?.name ?? '';
-});
-document.getElementById('file-zip').addEventListener('change', e => {
-  document.getElementById('name-zip').textContent = e.target.files[0]?.name ?? '';
-});
+function selectQuality(el) {
+  document.querySelectorAll('.quality-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+}
 
-// Drag-over styling
+function getQuality() {
+  const s = document.querySelector('.quality-opt.selected');
+  return { res: s.dataset.res, crf: s.dataset.crf };
+}
+
+// ── file labels ───────────────────────────────────────────────────────────────
+document.getElementById('file-mp4').addEventListener('change', e =>
+  document.getElementById('name-mp4').textContent = e.target.files[0]?.name ?? '');
+document.getElementById('file-zip').addEventListener('change', e =>
+  document.getElementById('name-zip').textContent = e.target.files[0]?.name ?? '');
+
 ['drop-mp4','drop-zip'].forEach(id => {
   const el = document.getElementById(id);
   el.addEventListener('dragover',  e => { e.preventDefault(); el.classList.add('drag-over'); });
@@ -384,18 +154,7 @@ document.getElementById('file-zip').addEventListener('change', e => {
   el.addEventListener('drop',      () => el.classList.remove('drag-over'));
 });
 
-// ── Quality select ───────────────────────────────────────────────────────────
-function selectQuality(el) {
-  document.querySelectorAll('.quality-opt').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-}
-
-function getQuality() {
-  const sel = document.querySelector('.quality-opt.selected');
-  return { res: sel.dataset.res, crf: sel.dataset.crf };
-}
-
-// ── Logging ──────────────────────────────────────────────────────────────────
+// ── log / progress ────────────────────────────────────────────────────────────
 function log(msg, cls = '') {
   const el   = document.getElementById('log-lines');
   const line = document.createElement('div');
@@ -406,158 +165,118 @@ function log(msg, cls = '') {
 }
 
 function setProgress(pct) {
-  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-fill').style.width = Math.min(pct, 100) + '%';
 }
 
 function addDownload(filename, blob) {
   const url  = URL.createObjectURL(blob);
+  const mb   = (blob.size / 1024 / 1024).toFixed(1);
   const list = document.getElementById('dl-list');
   const item = document.createElement('div');
   item.className = 'dl-item';
-  const sizeMb = (blob.size / 1024 / 1024).toFixed(1);
   item.innerHTML = `
-    <span class="dl-name">${filename} <span style="color:var(--muted)">(${sizeMb} MB)</span></span>
-    <button class="dl-btn" onclick="triggerDownload('${url}','${filename}')">Download</button>
-  `;
+    <span class="dl-name">${filename} <span style="color:var(--muted)">(${mb} MB)</span></span>
+    <button class="dl-btn" onclick="triggerDl('${url}','${filename}')">Download</button>`;
   list.appendChild(item);
 }
 
-function triggerDownload(url, name) {
+function triggerDl(url, name) {
   const a = document.createElement('a');
   a.href = url; a.download = name; a.click();
 }
 
-// ── Load ffmpeg.wasm ─────────────────────────────────────────────────────────
-async function loadFFmpeg() {
-  if (ffmpegLoaded) return ffmpegInst;
-  log('Loading ffmpeg.wasm...');
-
-  await new Promise((res, rej) => {
-    const s = document.createElement('script');
-    s.src = FFMPEG_CDN;
-    s.onload = res; s.onerror = rej;
-    document.head.appendChild(s);
-  });
-
-  const { FFmpeg } = window.FFmpegWASM ?? FFmpegLib ?? {};
-  if (!FFmpeg) throw new Error('FFmpeg constructor not found — check CDN.');
-
-  ffmpegInst = new FFmpeg();
-
-  // Show ffmpeg stderr log (progress) in our log
-  ffmpegInst.on('log', ({ message }) => {
-    const m = message.trim();
-    if (m) log(m);
-  });
-
-  const useMT = typeof SharedArrayBuffer !== 'undefined';
-  const coreURL = (useMT ? CORE_MT : CORE_ST) + '/ffmpeg-core.js';
-  const wasmURL = (useMT ? CORE_MT : CORE_ST) + '/ffmpeg-core.wasm';
-
-  await ffmpegInst.load({ coreURL, wasmURL });
-  ffmpegLoaded = true;
+// ── load ffmpeg ───────────────────────────────────────────────────────────────
+async function ensureLoaded() {
+  if (ffmpegReady) return;
+  log('Loading ffmpeg.wasm (~25 MB, one time)...');
+  await ff.load();
+  ffmpegReady = true;
   log('ffmpeg ready.', 'ok');
-  return ffmpegInst;
 }
 
-// ── Compress one file ─────────────────────────────────────────────────────────
-async function compressFile(ff, fileData, originalName, res, crf) {
-  const { fetchFile } = window.FFmpegUtil ?? {};
+// ── compress one video ────────────────────────────────────────────────────────
+async function compressOne(uint8, originalName, res, crf) {
   const ext      = originalName.split('.').pop().toLowerCase();
-  const inName   = `in_${Date.now()}.${ext}`;
-  const outName  = `out_${Date.now()}.mp4`;
+  const inName   = `input.${ext}`;
+  const outName  = 'output.mp4';
   const nameOnly = originalName.replace(/\.[^.]+$/, '');
 
   log(`Compressing ${originalName}...`, 'info');
+  setProgress(0);
 
-  const data = fileData instanceof Uint8Array ? fileData : new Uint8Array(fileData);
-  await ff.writeFile(inName, data);
+  ff.FS('writeFile', inName, uint8);
 
-  await ff.exec([
+  await ff.run(
     '-i', inName,
-    '-vcodec', 'libx264',   // libx264 is available in ffmpeg.wasm (libx265 may not be)
+    '-vcodec', 'libx264',
     '-crf', String(crf),
     '-vf', `scale=${res}`,
-    '-acodec', 'aac',
-    '-b:a', '128k',
+    '-acodec', 'aac', '-b:a', '128k',
     '-movflags', '+faststart',
     '-preset', 'fast',
     outName
-  ]);
+  );
 
-  const out  = await ff.readFile(outName);
-  const blob = new Blob([out.buffer], { type: 'video/mp4' });
+  const data = ff.FS('readFile', outName);
+  const blob = new Blob([data.buffer], { type: 'video/mp4' });
 
-  await ff.deleteFile(inName);
-  await ff.deleteFile(outName);
+  try { ff.FS('unlink', inName);  } catch (_) {}
+  try { ff.FS('unlink', outName); } catch (_) {}
 
-  log(`${nameOnly}.mp4 — ${(blob.size / 1024 / 1024).toFixed(1)} MB`, 'ok');
+  log(`${nameOnly}.mp4 — ${(blob.size/1024/1024).toFixed(1)} MB`, 'ok');
   addDownload(`${nameOnly}.mp4`, blob);
 }
 
-// ── Main run ─────────────────────────────────────────────────────────────────
+// ── main ──────────────────────────────────────────────────────────────────────
 async function run() {
-  const btn = document.getElementById('run-btn');
+  const btn     = document.getElementById('run-btn');
   const logCard = document.getElementById('log-card');
 
-  // Validate input
-  let file;
-  if (activeTab === 'mp4') {
-    file = document.getElementById('file-mp4').files[0];
-    if (!file) { alert('Select a video file first.'); return; }
-  } else {
-    file = document.getElementById('file-zip').files[0];
-    if (!file) { alert('Select a zip file first.'); return; }
-  }
+  const file = activeTab === 'mp4'
+    ? document.getElementById('file-mp4').files[0]
+    : document.getElementById('file-zip').files[0];
+
+  if (!file) { alert(`Select a ${activeTab === 'mp4' ? 'video' : 'zip'} file first.`); return; }
 
   const { res, crf } = getQuality();
 
-  // Reset UI
   btn.disabled = true;
   btn.textContent = 'Working...';
   document.getElementById('log-lines').innerHTML = '';
   document.getElementById('dl-list').innerHTML   = '';
-  document.getElementById('progress-fill').style.width = '0%';
+  document.getElementById('log-title').textContent = 'Processing';
+  setProgress(0);
   logCard.classList.add('visible');
 
   try {
-    const ff = await loadFFmpeg();
+    await ensureLoaded();
 
     if (activeTab === 'mp4') {
-      // Single video
       const buf = await file.arrayBuffer();
-      await compressFile(ff, new Uint8Array(buf), file.name, res, crf);
+      await compressOne(new Uint8Array(buf), file.name, res, crf);
       setProgress(100);
 
     } else {
-      // Zip — extract videos and compress each
-      const JSZip = await loadJSZip();
-      const zip   = await JSZip.loadAsync(await file.arrayBuffer());
-
+      const zip     = await JSZip.loadAsync(await file.arrayBuffer());
       const entries = Object.values(zip.files).filter(f => {
         const ext = f.name.split('.').pop().toLowerCase();
         return !f.dir && VIDEO_EXT.includes(ext);
       });
 
-      if (entries.length === 0) {
-        log('No video files found in zip.', 'err');
-        return;
-      }
-
-      log(`${entries.length} video(s) found in zip.`);
+      if (!entries.length) { log('No video files found in zip.', 'err'); return; }
+      log(`${entries.length} video(s) found.`);
 
       for (let i = 0; i < entries.length; i++) {
-        const entry = entries[i];
-        const name  = entry.name.split('/').pop();
+        const name = entries[i].name.split('/').pop();
         log(`Extracting ${name}...`);
-        const buf = await entry.async('arraybuffer');
-        await compressFile(ff, new Uint8Array(buf), name, res, crf);
+        const buf = await entries[i].async('arraybuffer');
+        await compressOne(new Uint8Array(buf), name, res, crf);
         setProgress(Math.round((i + 1) / entries.length * 100));
       }
     }
 
     document.getElementById('log-title').textContent = 'Done';
-    log('All files ready for download.', 'ok');
+    log('All files ready.', 'ok');
 
   } catch (err) {
     log(`Error: ${err.message}`, 'err');
@@ -566,18 +285,6 @@ async function run() {
     btn.disabled    = false;
     btn.textContent = 'Compress';
   }
-}
-
-// ── Lazy load JSZip ──────────────────────────────────────────────────────────
-function loadJSZip() {
-  if (window.JSZip) return Promise.resolve(window.JSZip);
-  return new Promise((res, rej) => {
-    const s = document.createElement('script');
-    s.src = 'https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js';
-    s.onload = () => res(window.JSZip);
-    s.onerror = rej;
-    document.head.appendChild(s);
-  });
 }
 </script>
 </body>
